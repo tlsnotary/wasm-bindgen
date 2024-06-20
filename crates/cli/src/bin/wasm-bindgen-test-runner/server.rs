@@ -44,6 +44,7 @@ pub(crate) fn spawn(
                 __wbgtest_console_warn,
                 __wbgtest_console_error,
                 default as init,
+                initThreadPool,
             }} from './{}';
             "#,
             module,
@@ -105,6 +106,7 @@ pub(crate) fn spawn(
 
             async function run_in_worker(tests) {{
                 const wasm = await init("./{0}_bg.wasm");
+                await initThreadPool(navigator.hardwareConcurrency);
                 const t = self;
                 const cx = new Context();
 
